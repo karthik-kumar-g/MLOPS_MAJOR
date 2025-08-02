@@ -68,5 +68,10 @@ jobs:
       - name: Build Docker image
         run: docker build -t mlops-major-app .
 
-      - name: Run predict.py inside container
-        run: docker run --rm -v ${{ github.workspace }}:/app -w /app/src mlops-major-app python predict.py
+      - name: 🔍 Run predict.py inside container
+        run: |
+          docker run --rm \
+          -v ${{ github.workspace }}:/app \
+          -w /app/src \
+          mlops-major-app \
+          python predict.py
