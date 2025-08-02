@@ -46,8 +46,8 @@ def main():
 
     # Use a real sample for prediction
     print("Verifying prediction using dequantized parameters...")
-    data = load_data
-    X_sample = data.data[0]  # one row
+    X, _ = load_data()
+    X_sample = X[0]  # one row
     coef_deq = dequantize_params(coef_q, coef_scale, coef_min)
     intercept_deq = dequantize_params(intercept_q, intercept_scale, intercept_min)[0]
 
