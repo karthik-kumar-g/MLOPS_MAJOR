@@ -8,8 +8,8 @@ def quantize_params(params):
     max_val = params.max()
 
     if max_val == min_val:
+        scale = 1.0  # avoid divide-by-zero
         quantized = np.zeros_like(params, dtype=np.uint8)
-        scale = 1.0  # avoid divide by zero
     else:
         scale = 255 / (max_val - min_val)
         quantized = ((params - min_val) * scale).astype(np.uint8)
@@ -27,7 +27,10 @@ def main():
 
     print("Saving unquantized parameters...")
     os.makedirs("../artifacts", exist_ok=True)
-    joblib.dump({'coef': coef, 'intercept': intercept}, "../artifacts/params_unquantized.joblib")
+    joblib.dump({
+        'coef': coef,
+        'intercept': intercept
+    }, "../artifacts/params_unquantized.joblib")
 
     print("Quantizing parameters...")
     coef_q, coef_scale, coef_min = quantize_params(coef)
@@ -44,15 +47,14 @@ def main():
 
     print("Quantized parameters saved.")
 
-    # Use a real sample for prediction
     print("Verifying prediction using dequantized parameters...")
     X, _ = load_data()
-    X_sample = X[0]  # one row
+    X_sample = X[0] 
     coef_deq = dequantize_params(coef_q, coef_scale, coef_min)
     intercept_deq = dequantize_params(intercept_q, intercept_scale, intercept_min)[0]
 
-    pred = np.dot(coef_deq, X_sample) + intercept_deq
-    print(f"Sample prediction (dequantized): {pred:.4f}")
+    pred = np.dot(X_sample, coef_deq) + intercept_deq
+    print(f"Sample prediction (dequantized weights): {pred:.4f}")
 
 if __name__ == "__main__":
     main()
