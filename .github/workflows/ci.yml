@@ -48,12 +48,15 @@ jobs:
 
       - name: Ensure data directory
         run: mkdir -p data && cp data/california.csv data/california.csv || echo "Assuming data exists"
+        working-directory: src
 
       - name: Train model
         run: python src/train.py
+        working-directory: src
 
       - name: Quantize model
         run: python src/quantize.py
+        working-directory: src
 
   docker-test:
     runs-on: ubuntu-latest

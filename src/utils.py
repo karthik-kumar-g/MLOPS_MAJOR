@@ -3,7 +3,7 @@ import os
 from sklearn.datasets import fetch_california_housing
 
 def load_data():
-    data_path = "/data/california.csv"
+    data_path = "data/california.csv"
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Dataset not found at {data_path}")
 
