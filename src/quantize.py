@@ -2,7 +2,7 @@ import joblib
 import numpy as np
 import os
 from utils import load_data
-
+'''
 def quantize_params(params):
     min_val = params.min()
     max_val = params.max()
@@ -17,7 +17,12 @@ def quantize_params(params):
     return quantized, scale, min_val
 
 def dequantize_params(quantized, scale, min_val):
-    return quantized.astype(np.float32) / scale + min_val
+    return quantized.astype(np.float32) / scale + min_val '''
+def quantize_params(params):
+    return params.astype(np.float16)
+
+def dequantize_params(quantized):
+    return quantized.astype(np.float32)
 
 def main():
     print("Loading model...")
@@ -37,19 +42,21 @@ def main():
     intercept_q, intercept_scale, intercept_min = quantize_params(np.array([intercept]))
 
     joblib.dump({
-        'coef': coef_q,
+        ''''coef': coef_q,
         'coef_scale': coef_scale,
         'coef_min': coef_min,
         'intercept': intercept_q,
         'intercept_scale': intercept_scale,
-        'intercept_min': intercept_min
+        'intercept_min': intercept_min'''
+        'coef': quantize_params(coef),
+        'intercept': np.float16(intercept)
     }, "../artifacts/params_quantized.joblib")
 
     print("Quantized parameters saved.")
 
     print("Verifying prediction using dequantized parameters...")
     X, _ = load_data()
-    X_sample = X[0] 
+    X_sample = X[0]
     coef_deq = dequantize_params(coef_q, coef_scale, coef_min)
     intercept_deq = dequantize_params(intercept_q, intercept_scale, intercept_min)[0]
 

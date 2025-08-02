@@ -13,11 +13,11 @@ def load_unquantized_params(path):
 
 def load_quantized_params(path):
     params = joblib.load(path)
-    coef_q = params["coef"]
-    intercept_q = params["intercept"]
-    coef = coef_q.astype(np.float32) / params["coef_scale"] + params["coef_min"]
-    intercept = intercept_q.astype(np.float32) / params["intercept_scale"] + params["intercept_min"]
-    return coef, intercept[0]
+    coef = params["coef"].astype(np.float32)
+    intercept = float(params["intercept"])
+    '''coef = coef_q.astype(np.float32) / params["coef_scale"] + params["coef_min"]
+    intercept = intercept_q.astype(np.float32) / params["intercept_scale"] + params["intercept_min"]'''
+    return coef, intercept
 
 def get_file_size_kb(path):
     return os.path.getsize(path) / 1024
