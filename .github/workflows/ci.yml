@@ -58,11 +58,11 @@ jobs:
         run: python quantize.py
         working-directory: src
 
-      -name: Upload artifacts directory
-       uses: actions/upload-artifact@v3
-       with:
-         name: model-artifacts
-         path: artifacts/
+      - name: Upload artifacts directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: model-artifacts
+          path: artifacts/
 
       - name: Debug — list contents of src
         run: ls -R
