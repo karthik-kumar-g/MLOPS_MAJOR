@@ -26,7 +26,7 @@ def main():
     intercept = model.intercept_
 
     print("Saving unquantized parameters...")
-    os.makedirs("/artifacts", exist_ok=True)
+    os.makedirs("../artifacts", exist_ok=True)
     joblib.dump({'coef': coef, 'intercept': intercept}, "../artifacts/params_unquantized.joblib")
 
     print("Quantizing parameters...")
@@ -40,7 +40,7 @@ def main():
         'intercept': intercept_q,
         'intercept_scale': intercept_scale,
         'intercept_min': intercept_min
-    }, "artifacts/params_quantized.joblib")
+    }, "../artifacts/params_quantized.joblib")
 
     print("Quantized parameters saved.")
 
