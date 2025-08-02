@@ -58,6 +58,12 @@ jobs:
         run: python quantize.py
         working-directory: src
 
+      -name: Upload artifacts directory
+       uses: actions/upload-artifact@v3
+       with:
+         name: model-artifacts
+         path: artifacts/
+
       - name: Debug — list contents of src
         run: ls -R
         working-directory: src
@@ -69,6 +75,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Download artifacts directory
+        uses: actions/download-artifact@v3
+        with:
+          name: model-artifacts
+          path: artifacts/
+
       - name: Build Docker image
         run: docker build -t mlops-major-app .
 
@@ -76,7 +88,7 @@ jobs:
         run: |
           echo "Checking mounted files inside container..."
           docker run --rm \
-            -v ${{ github.workspace }}/src:/app \
+            -v ${{ github.workspace }}/:/app \
             -w /app/src \
             mlops-major-app \
-            sh -c "ls -R && ls /app/artifacts && python predict.py"
+            sh -c "ls -R /app && ls /app/artifacts && python predict.py"
