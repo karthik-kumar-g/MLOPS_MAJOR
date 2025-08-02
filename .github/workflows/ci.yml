@@ -57,7 +57,7 @@ jobs:
       - name: Quantize model
         run: python quantize.py
         working-directory: src
-        
+
       - name: Debug — list contents of src
         run: ls -R
         working-directory: src
@@ -72,10 +72,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t mlops-major-app .
 
-      - name: 🔍 Run predict.py inside container
+      - name: Run predict.py inside container
         run: |
+          echo "Checking mounted files inside container..."
           docker run --rm \
-          -v ${{ github.workspace }}:/app \
-          -w /app/src \
-          mlops-major-app \
-          python predict.py
+            -v ${{ github.workspace }}/src:/app/src \
+            -w /app/src \
+            mlops-major-app \
+            sh -c "ls -R && python predict.py"
