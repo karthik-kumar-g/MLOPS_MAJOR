@@ -91,4 +91,8 @@ jobs:
             -v ${{ github.workspace }}/:/app \
             -w /app/src \
             mlops-major-app \
-            sh -c "ls -R /app && ls /app/artifacts && python predict.py"
+            sh -c "\
+              echo 'Contents of /app/artifacts:' && ls -l /app/artifacts && \
+              echo 'Running predict.py...' && python predict.py && \
+              echo 'Running model_eval.py...' && python model_eval.py \
+            "
