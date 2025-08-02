@@ -23,8 +23,8 @@ def main():
 
     print(f"Training completed. R2 Score: {r2:.4f}, MSE: {mse:.4f}")
 
-    os.makedirs("artifacts", exist_ok=True)
-    joblib.dump(model, "artifacts/linear_model.joblib")
+    os.makedirs("../artifacts", exist_ok=True)
+    joblib.dump(model, "../artifacts/linear_model.joblib")
     print("Model saved at artifacts/linear_model.joblib")
 
 if __name__ == "__main__":

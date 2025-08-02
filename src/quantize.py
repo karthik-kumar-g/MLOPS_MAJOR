@@ -21,13 +21,13 @@ def dequantize_params(quantized, scale, min_val):
 
 def main():
     print("Loading model...")
-    model = joblib.load("artifacts/linear_model.joblib")
+    model = joblib.load("../artifacts/linear_model.joblib")
     coef = model.coef_
     intercept = model.intercept_
 
     print("Saving unquantized parameters...")
-    os.makedirs("artifacts", exist_ok=True)
-    joblib.dump({'coef': coef, 'intercept': intercept}, "artifacts/params_unquantized.joblib")
+    os.makedirs("../artifacts", exist_ok=True)
+    joblib.dump({'coef': coef, 'intercept': intercept}, "../artifacts/params_unquantized.joblib")
 
     print("Quantizing parameters...")
     coef_q, coef_scale, coef_min = quantize_params(coef)

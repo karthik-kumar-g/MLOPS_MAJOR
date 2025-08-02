@@ -3,7 +3,7 @@ from utils import load_data
 
 def main():
     print("Loading model...")
-    model = joblib.load("artifacts/linear_model.joblib")
+    model = joblib.load("../artifacts/linear_model.joblib")
 
     print("Fetching test sample...")
     X, _ = load_data()
