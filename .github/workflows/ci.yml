@@ -76,7 +76,7 @@ jobs:
         run: |
           echo "Checking mounted files inside container..."
           docker run --rm \
-            -v ${{ github.workspace }}/src:/app/src \
+            -v ${{ github.workspace }}/src:/app \
             -w /app/src \
             mlops-major-app \
-            sh -c "ls -R && python predict.py"
+            sh -c "ls -R && ls /app/artifacts && python predict.py"
