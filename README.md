@@ -1,6 +1,7 @@
 # MLOps Major Assignment — California Housing Regression
 
-[![CI/CD Pipeline](https://github.com/karthik-kumar-g/MLOPS_MAJOR/actions/workflows/main.yml/badge.svg)](https://github.com/karthik-kumar-g/MLOPS_MAJOR/actions)
+[[CI/CD Pipeline](https://github.com/karthik-kumar-g/MLOPS_MAJOR/actions)
+[Docker Image](https://hub.docker.com/layers/karthikkumarg/mlops-major-app/latest/images/sha256-e9d1602f6dac6854c09f182cc7b846c09a3288bb87b0667d4a13ec3209734936)
 
 ## Objective
 
