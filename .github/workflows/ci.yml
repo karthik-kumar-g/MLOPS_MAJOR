@@ -42,6 +42,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Generate dataset using utils.py
+        run: python -c "from utils import generate_data; generate_data()"
+        working-directory: src
+
       - name: Ensure data directory
         run: mkdir -p data && cp data/california.csv data/california.csv || echo "Assuming data exists"
 
