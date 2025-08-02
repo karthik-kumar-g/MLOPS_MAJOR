@@ -57,6 +57,10 @@ jobs:
       - name: Quantize model
         run: python quantize.py
         working-directory: src
+        
+      - name: Debug — list contents of src
+        run: ls -R
+        working-directory: src
 
   docker-test:
     runs-on: ubuntu-latest
